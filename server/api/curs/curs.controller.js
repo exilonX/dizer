@@ -1,16 +1,16 @@
 /**
  * Using Rails-like standard naming convention for endpoints.
- * GET     /api/things              ->  index
- * POST    /api/things              ->  create
- * GET     /api/things/:id          ->  show
- * PUT     /api/things/:id          ->  update
- * DELETE  /api/things/:id          ->  destroy
+ * GET     /api/curss              ->  index
+ * POST    /api/curss              ->  create
+ * GET     /api/curss/:id          ->  show
+ * PUT     /api/curss/:id          ->  update
+ * DELETE  /api/curss/:id          ->  destroy
  */
 
 'use strict';
 
 var _ = require('lodash');
-var Thing = require('./thing.model');
+var Curs = require('./curs.model');
 
 function handleError(res, statusCode) {
   statusCode = statusCode || 500;
@@ -59,43 +59,43 @@ function removeEntity(res) {
   };
 }
 
-// Returneaza o lista 
+// Gets a list of Curss
 exports.index = function(req, res) {
-  Thing.findAsync()
+  Curs.findAsync()
     .then(responseWithResult(res))
     .catch(handleError(res));
 };
 
-// Gets a single Thing from the DB
+// Gets a single Curs from the DB
 exports.show = function(req, res) {
-  Thing.findByIdAsync(req.params.id)
+  Curs.findByIdAsync(req.params.id)
     .then(handleEntityNotFound(res))
     .then(responseWithResult(res))
     .catch(handleError(res));
 };
 
-// Creates a new Thing in the DB
+// Creates a new Curs in the DB
 exports.create = function(req, res) {
-  Thing.createAsync(req.body)
+  Curs.createAsync(req.body)
     .then(responseWithResult(res, 201))
     .catch(handleError(res));
 };
 
-// Updates an existing Thing in the DB
+// Updates an existing Curs in the DB
 exports.update = function(req, res) {
   if (req.body._id) {
     delete req.body._id;
   }
-  Thing.findByIdAsync(req.params.id)
+  Curs.findByIdAsync(req.params.id)
     .then(handleEntityNotFound(res))
     .then(saveUpdates(req.body))
     .then(responseWithResult(res))
     .catch(handleError(res));
 };
 
-// Deletes a Thing from the DB
+// Deletes a Curs from the DB
 exports.destroy = function(req, res) {
-  Thing.findByIdAsync(req.params.id)
+  Curs.findByIdAsync(req.params.id)
     .then(handleEntityNotFound(res))
     .then(removeEntity(res))
     .catch(handleError(res));

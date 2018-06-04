@@ -3,7 +3,7 @@
 var mongoose = require('bluebird').promisifyAll(require('mongoose'));
 var Schema = mongoose.Schema;
 
-var GrupaSchema = new Schema({
+var Curschema = new Schema({
   denumireCurs: {type: String, required: true},
   nrOre: Number,
   pretIntreg:Number,
@@ -11,4 +11,4 @@ var GrupaSchema = new Schema({
   nrRate:Number
 });
 
-module.exports = mongoose.model('Grupa', GrupaSchema);
+module.exports = mongoose.model('Curs', CursSchema);

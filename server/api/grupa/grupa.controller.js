@@ -59,14 +59,14 @@ function removeEntity(res) {
   };
 }
 
-// Gets a list of Grupas
+// Returneaza o lista de grupe
 exports.index = function(req, res) {
   Grupa.findAsync()
     .then(responseWithResult(res))
     .catch(handleError(res));
 };
 
-// Gets a single Grupa from the DB
+// Returneaza o singura grupa
 exports.show = function(req, res) {
   Grupa.findByIdAsync(req.params.id)
     .then(handleEntityNotFound(res))
@@ -74,14 +74,14 @@ exports.show = function(req, res) {
     .catch(handleError(res));
 };
 
-// Creates a new Grupa in the DB
+// Creaza o grupa
 exports.create = function(req, res) {
   Grupa.createAsync(req.body)
     .then(responseWithResult(res, 201))
     .catch(handleError(res));
 };
 
-// Updates an existing Grupa in the DB
+// Actualizeaza o grupa existenta
 exports.update = function(req, res) {
   if (req.body._id) {
     delete req.body._id;
@@ -93,10 +93,11 @@ exports.update = function(req, res) {
     .catch(handleError(res));
 };
 
-// Deletes a Grupa from the DB
+// Sterge o grupa din baza de date
 exports.destroy = function(req, res) {
   Grupa.findByIdAsync(req.params.id)
     .then(handleEntityNotFound(res))
     .then(removeEntity(res))
     .catch(handleError(res));
 };
+

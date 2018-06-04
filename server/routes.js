@@ -10,6 +10,7 @@ import path from 'path';
 module.exports = function(app) {
 
   // Insert routes below
+  app.use('/api/curss', require('./api/curs'));
   app.use('/api/grupas', require('./api/grupa'));
   app.use('/api/users', require('./api/user'));
   app.use('/api/things', require('./api/thing'));
