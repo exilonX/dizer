@@ -2,10 +2,32 @@
 
 class NavbarController {
   //start-non-standard
-  menu = [{
-    'title': 'Home',
-    'state': 'main'
-  }];
+  menu = [
+    {
+      'title' : 'Curs',
+      'state' : 'curs'
+    },
+    {
+      'title' : 'Grupe',
+      'state' : 'grupa'
+    },
+    {
+      'title' : 'Examen',
+      'state' : 'examen'
+    },
+    {
+      'title' : 'Cursanti',
+      'state' : 'cursant'
+    },
+    {
+      'title' : 'Facturi',
+      'state' : 'factura'
+    },
+    {
+      'title' : 'Contracte',
+      'state' : 'contract'
+    }
+  ];
 
   isCollapsed = true;
   //end-non-standard
