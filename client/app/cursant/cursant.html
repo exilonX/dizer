@@ -1,1 +1,131 @@
-<div>This is the cursant view.</div>
+<navbar></navbar>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+      <h1>Cursanti</h1>
+    </div>
+
+    <div class="col-sm-12">
+      <form class="form" name="form" ng-submit="adauga(form)" novalidate>
+        <div class="row">
+
+          <div class="form-group col-sm-4" ng-class="{ 'has-success': form.nume.$valid && submitted,
+                                            'has-error': form.nume.$invalid && submitted }">
+            <label>Nume</label>
+
+            <input type="text" name="nume" class="form-control" ng-model="cursant.nume"
+                   required/>
+            <p class="help-block" ng-show="form.nume.$error.required && submitted">
+              Numele este necesar
+            </p>
+          </div>
+
+          <div class="form-group col-sm-4" ng-class="{ 'has-success': form.prenume.$valid && submitted,
+                                            'has-error': form.prenume.$invalid && submitted }">
+            <label>Prenume</label>
+
+            <input type="text" name="prenume" class="form-control" ng-model="cursant.prenume"
+                   required/>
+            <p class="help-block" ng-show="form.prenume.$error.required && submitted">
+              Prenumele este necesar
+            </p>
+          </div>
+
+          <div class="form-group col-sm-4" ng-class="{ 'has-success': form.cnp.$valid && submitted,
+                                            'has-error': form.cnp.$invalid && submitted }">
+            <label>CNP</label>
+
+            <input type="text" name="cnp" class="form-control" ng-model="cursant.cnp"
+                   required/>
+            <p class="help-block" ng-show="form.cnp.$error.required && submitted">
+              CNP este necesar
+            </p>
+          </div>
+
+        </div>
+        <div class="row">
+
+          <div class="form-group col-sm-2" ng-class="{ 'has-success': form.serieCI.$valid && submitted,
+                                            'has-error': form.serieCI.$invalid && submitted }">
+            <label>Serie CI</label>
+
+            <input type="text" name="serieCI" class="form-control" ng-model="cursant.serieCI"
+            />
+          </div>
+
+          <div class="form-group col-sm-2" ng-class="{ 'has-success': form.nrCI.$valid && submitted,
+                                            'has-error': form.nrCI.$invalid && submitted }">
+            <label>Numar CI </label>
+
+            <input type="text" name="nrCI" class="form-control" ng-model="cursant.nrCI"/>
+          </div>
+
+          <div class="form-group col-sm-4" ng-class="{ 'has-success': form.dataCI.$valid && submitted,
+                                            'has-error': form.dataCI.$invalid && submitted }">
+            <label>Data eliberare CI</label>
+            <!--<p class="input-group">-->
+            <!--<input type="text" name="dataCI" class="form-control" ng-model="cursant.dataCI"/>-->
+            <!--<div datepicker-popup ng-model="cursant.dataCI" class="form-control" datepicker-options="options"></div>-->
+            <input type="date" class="form-control" datepicker-popup ng-model="cursant.dataCI"
+                   datepicker-options="dateOptions">
+            <!--<span class="input-group-btn">-->
+                <!--<button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>-->
+              <!--</span>-->
+            <!--</p>-->
+          </div>
+
+          <div class="form-group col-sm-4" ng-class="{ 'has-success': form.eliberatCI.$valid && submitted,
+                                            'has-error': form.eliberatCI.$invalid && submitted }">
+            <label>CI eliberat de </label>
+
+            <input type="text" name="eliberatCI" class="form-control" ng-model="cursant.eliberatCI"/>
+          </div>
+        </div>
+
+        <div class="row col-sm-12">
+
+          <button class="btn btn-inverse btn-lg" type="submit">
+            Adauga Cursant
+          </button>
+          <button class="btn btn-default btn-lg" type="button" ng-click="cauta()">
+            Cauta Cursant
+          </button>
+        </div>
+      </form>
+    </div>
+
+
+
+
+  </div>
+
+  <div class="container" style="padding-top: 50px">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Nume</th>
+          <th>Prenume</th>
+          <th>CNP</th>
+          <th>Serie CI</th>
+          <th>Numar CI</th>
+          <th>Data eliberare CI</th>
+          <th>CI eliberat de</th>
+          <th>Sterge</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="c in lista">
+          <td class="col-sm-2"> {{c.nume}}</td>
+          <td class="col-sm-2"> {{c.prenume}}</td>
+          <td class="col-sm-2">{{c.cnp}}</td>
+          <td class="col-sm-1">{{c.serieCI}}</td>
+          <td class="col-sm-1"> {{c.nrCI}}</td>
+          <td class="col-sm-1"> {{c.dataCI | date}}</td>
+          <td class="col-sm-2"> {{c.eliberatCI}}</td>
+          <td class="col-sm-1"><button class="glyphicon glyphicon-remove" ng-click="sterge(c._id)"></button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>

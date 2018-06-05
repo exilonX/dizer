@@ -100,3 +100,10 @@ exports.destroy = function(req, res) {
     .then(removeEntity(res))
     .catch(handleError(res));
 };
+
+exports.search = function(req, res) {
+  console.log(req.body);
+  Cursant.find(req.body)
+    .then(responseWithResult(res))
+    .then(handleError(res));
+}
