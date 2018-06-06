@@ -16,11 +16,15 @@ angular.module('dizerApp')
     };
 
     $scope.adauga = function(form) {
-      $http.post(API, $scope.cursant).then(response => {
-        if (response.data)
-          $scope.lista.push(response.data)
-        $scope.cursant = {};
-      });
+      $scope.submitted = true;
+      if (form.$valid) {
+        $http.post(API, $scope.cursant).then(response => {
+          if (response.data)
+            $scope.lista.push(response.data)
+          $scope.cursant = {};
+          $scope.submitted = false;
+        });
+      }
     };
 
     $scope.sterge = function(id) {
