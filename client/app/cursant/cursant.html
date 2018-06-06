@@ -85,10 +85,13 @@
         <div class="row col-sm-12">
 
           <button class="btn btn-inverse btn-lg" type="submit">
-            Adauga Cursant
+            Adauga
           </button>
           <button class="btn btn-default btn-lg" type="button" ng-click="cauta()">
-            Cauta Cursant
+            Cauta
+          </button>
+          <button ng-show="updateFlag" class="btn btn-default btn-lg" type="button" ng-click="salveaza_modificari()">
+            Modifica
           </button>
         </div>
       </form>
@@ -110,7 +113,7 @@
           <th>Numar CI</th>
           <th>Data eliberare CI</th>
           <th>CI eliberat de</th>
-          <th>Sterge</th>
+          <th>Sterge/Modifica</th>
         </tr>
       </thead>
       <tbody>
@@ -122,7 +125,10 @@
           <td class="col-sm-1"> {{c.nrCI}}</td>
           <td class="col-sm-1"> {{c.dataCI | date}}</td>
           <td class="col-sm-2"> {{c.eliberatCI}}</td>
-          <td class="col-sm-1"><button class="glyphicon glyphicon-remove" ng-click="sterge(c._id)"></button></td>
+          <td class="col-sm-1">
+            <button class="glyphicon glyphicon-remove" ng-click="sterge(c._id)"></button>
+            <button class="glyphicon glyphicon-pencil" ng-click="modifica(c._id)"></button>
+          </td>
         </tr>
       </tbody>
     </table>
