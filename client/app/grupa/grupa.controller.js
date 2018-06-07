@@ -87,6 +87,10 @@ angular.module('dizerApp')
         var c = $scope.lista[i];
         if (c._id == id) {
           $scope.grupa = c;
+          if(c["dataStart"])
+            $scope.grupa["dataStart"] = new Date(c["dataStart"]);
+          if (c["dataStop"])
+            $scope.grupa["dataStop"] = new Date(c["dataStop"]);
           $scope.updateFlag = true;
           break;
         }
