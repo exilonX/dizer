@@ -105,4 +105,19 @@ exports.search = function(req, res) {
   Contract.find(req.body)
     .then(responseWithResult(res))
     .then(handleError(res));
-}
+};
+
+exports.nrContracte = function(req, res) {
+  Contract.count({
+    idGrupa : req.params.idGrupa
+  }).then(responseWithResult(res))
+    .then(handleError(res));
+};
+
+
+exports.searchRegex = function(req, res) {
+  var rgxp = new RegExp("^" + req.params.nrContract);
+  Contract.find({nrContract : rgxp})
+    .then(responseWithResult(res))
+    .then(handleError(res));
+};

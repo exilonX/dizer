@@ -6,6 +6,8 @@ var controller = require('./contract.controller');
 var router = express.Router();
 
 router.get('/', controller.index);
+router.get('/regex/:nrContract', controller.searchRegex);
+router.get('/count/:idGrupa', controller.nrContracte);
 router.get('/:id', controller.show);
 router.post('/', controller.create);
 router.post('/search', controller.search);

@@ -10,8 +10,8 @@ angular.module('dizerApp')
     var API = '/api/contracts/';
     $scope.updateFlag = false;
 
-    $scope.getCursanti = function() {
-      return $http.get('/api/cursants').then(response => {
+    $scope.getCursanti = function(value) {
+      return $http.get('/api/cursants/regex/' + value).then(response => {
         $scope.cursanti = response.data;
         return response.data.map(function(item) {
           return item.nume + " " + item.prenume;
@@ -19,8 +19,8 @@ angular.module('dizerApp')
       });
     };
 
-    $scope.getGrupe = function() {
-      return $http.get('/api/grupas').then(response => {
+    $scope.getGrupe = function(value) {
+      return $http.get('/api/grupas/regex/' + value).then(response => {
         $scope.grupe = response.data;
         return response.data.map(function(item) {
           return item.nrGrupa;

@@ -9,8 +9,8 @@ angular.module('dizerApp')
     var API = '/api/examens/';
     $scope.updateFlag = false;
 
-    $scope.getCursanti = function() {
-      return $http.get('/api/cursants').then(response => {
+    $scope.getCursanti = function(value) {
+      return $http.get('/api/cursants/regex/' + value).then(response => {
         $scope.cursanti = response.data;
         return response.data.map(function(item) {
           return item.nume + " " + item.prenume;

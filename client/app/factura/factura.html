@@ -1,2 +1,100 @@
 <navbar></navbar>
-<div>This is the factura view.</div>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+      <h1>Factura</h1>
+    </div>
+
+    <div class="col-sm-12">
+      <form class="form" name="form" ng-submit="adauga(form)" novalidate>
+        <div class="row">
+          <div class="form-group col-sm-3" ng-class="{ 'has-success': form.numarContract.$valid && submitted,
+                                            'has-error': form.numarContract.$invalid && submitted }">
+            <label>Contract</label>
+
+            <input type="text" ng-model="factura.numarContract" placeholder="Contract"
+                   typeahead="c for c in getContracts($viewValue)" typeahead-loading="loadingLocations"
+                   class="form-control" typeahead-on-select="selectContracts($item, $model, $label)"
+                   name="numarContract" required>
+
+            <p class="help-block" ng-show="form.numarContract.$error.required && submitted">
+              Contractul este necesar
+            </p>
+          </div>
+
+          <div class="form-group col-sm-2" ng-class="{ 'has-success': form.dataFactura.$valid && submitted,
+                                            'has-error': form.dataFactura.$invalid && submitted }">
+            <label>Data Factura</label>
+            <input type="date" class="form-control" datepicker-popup ng-model="factura.dataFactura"
+                   name="dataFactura" datepicker-options="dateOptions" required>
+          </div>
+
+          <div class="form-group col-sm-3" ng-class="{ 'has-success': form.tipPlata.$valid && submitted,
+                                            'has-error': form.tipPlata.$invalid && submitted }">
+            <label>Tip Plata</label>
+
+            <input type="text" ng-model="factura.tipPlata"
+                   class="form-control" name="tipPlata" required>
+
+            <p class="help-block" ng-show="form.tipPlata.$error.required && submitted">
+              Tip Plata este necesar
+            </p>
+          </div>
+
+          <div class="form-group col-sm-2">
+            <label>Numar Plata</label>
+            <input type="number" name="nrPlata" class="form-control" ng-model="factura.nrPlata"/>
+          </div>
+
+          <div class="form-group col-sm-2" ng-class="{ 'has-success': form.dataPlata.$valid && submitted,
+                                            'has-error': form.dataPlata.$invalid && submitted }">
+            <label>Data Plata</label>
+            <input type="date" class="form-control" datepicker-popup ng-model="factura.dataPlata"
+                   name="dataPlata" datepicker-options="dateOptions">
+          </div>
+
+        </div>
+
+        <div class="row col-sm-12">
+          <button ng-disabled="updateFlag" class="btn btn-inverse btn-lg" type="submit">
+            Adauga
+          </button>
+          <button ng-disabled="updateFlag" class="btn btn-default btn-lg" type="button" ng-click="cauta()">
+            Cauta
+          </button>
+          <button ng-show="updateFlag" class="btn btn-default btn-lg" type="button" ng-click="salveaza_modificari()">
+            Modifica
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="container" style="padding-top: 50px">
+    <table class="table">
+      <thead>
+      <tr>
+        <th>Contract</th>
+        <th>Data Factura</th>
+        <th>Tip Plata</th>
+        <th>Numar Plata</th>
+        <th>Data Plata</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr ng-repeat="c in lista">
+        <td class="col-sm-2"> {{c.numarContract}}</td>
+        <td class="col-sm-2"> {{c.dataFactura | date}}</td>
+        <td class="col-sm-2"> {{c.tipPlata}}</td>
+        <td class="col-sm-1">{{c.nrPlata}}</td>
+        <td class="col-sm-2">{{c.dataPlata | date}}</td>
+        <td class="col-sm-1">
+          <button class="glyphicon glyphicon-remove" ng-click="sterge(c._id)"></button>
+          <button class="glyphicon glyphicon-pencil" ng-click="modifica(c._id)"></button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>

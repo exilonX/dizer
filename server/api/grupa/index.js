@@ -6,6 +6,7 @@ var controller = require('./grupa.controller');
 var router = express.Router();
 
 router.get('/', controller.index);
+router.get('/info', controller.getInfoGrupa);
 router.get('/:id', controller.show);
 router.post('/search', controller.search);
 router.post('/', controller.create);

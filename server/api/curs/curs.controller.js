@@ -105,4 +105,11 @@ exports.search = function(req, res) {
   Curs.find(req.body)
     .then(responseWithResult(res))
     .then(handleError(res));
-}
+};
+
+exports.searchRegex = function(req, res) {
+  var rgxp = new RegExp("^" + req.params.denumireCurs);
+  Curs.find({denumireCurs : rgxp})
+    .then(responseWithResult(res))
+    .then(handleError(res));
+};

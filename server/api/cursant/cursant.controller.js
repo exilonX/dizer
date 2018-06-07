@@ -101,6 +101,21 @@ exports.destroy = function(req, res) {
     .catch(handleError(res));
 };
 
+exports.searchRegex = function(req, res) {
+  var search = {};
+  if (req.params.nume.indexOf(" ") != -1) {
+    search.nume = new RegExp("^" + req.params.nume.split(" ")[0]);
+    search.prenume = new RegExp("^" + req.params.nume.split(" ")[1]);
+  } else {
+    search.nume = new RegExp("^" + req.params.nume);
+  }
+  console.log(search)
+  Cursant.find(search)
+    .then(responseWithResult(res))
+    .then(handleError(res));
+};
+
+
 exports.search = function(req, res) {
   Cursant.find(req.body)
     .then(responseWithResult(res))

@@ -9,8 +9,8 @@ angular.module('dizerApp')
     var API = '/api/grupas/';
     $scope.updateFlag = false;
 
-    $scope.getCursuri = function() {
-      return $http.get('/api/curs').then(response => {
+    $scope.getCursuri = function(value) {
+      return $http.get('/api/curs/regex/' + value).then(response => {
         $scope.cursuri = response.data;
         return response.data.map(function(item) {
           return item.denumireCurs;

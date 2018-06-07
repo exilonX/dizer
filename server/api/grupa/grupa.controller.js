@@ -22,6 +22,7 @@ function handleError(res, statusCode) {
 function responseWithResult(res, statusCode) {
   statusCode = statusCode || 200;
   return function(entity) {
+    console.log(entity)
     if (entity) {
       res.status(statusCode).json(entity);
     }
@@ -105,4 +106,14 @@ exports.search = function(req, res) {
   Grupa.find(req.body)
     .then(responseWithResult(res))
     .then(handleError(res));
-}
+};
+
+exports.getInfoGrupa = function(req, res) {
+  Grupa.find({
+    dataStart : {
+      $gte : new Date()
+    }
+  }).then(responseWithResult(res))
+    .then(handleError(res));
+};
+
