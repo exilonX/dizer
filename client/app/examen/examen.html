@@ -1,2 +1,97 @@
 <navbar></navbar>
-<div>This is the examen view.</div>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+      <h1>Examen</h1>
+    </div>
+
+    <div class="col-sm-12">
+      <form class="form" name="form" ng-submit="adauga(form)" novalidate>
+        <div class="row">
+
+
+          <div class="form-group col-sm-4" ng-class="{ 'has-success': form.numeCursant.$valid && submitted,
+                                            'has-error': form.numeCursant.$invalid && submitted }">
+            <label>Cursant</label>
+
+            <input type="text" ng-model="examen.numeCursant" placeholder="Cursanti"
+                   typeahead="c for c in getCursanti($viewValue)" typeahead-loading="loadingLocations"
+                   class="form-control" typeahead-on-select="selectCursanti($item, $model, $label)"
+                    name="numeCursant" required>
+
+            <p class="help-block" ng-show="form.numeCursant.$error.required && submitted">
+              Cursantul este necesar
+            </p>
+          </div>
+
+          <div class="form-group col-sm-2" ng-class="{ 'has-success': form.notaTeoretic.$valid && submitted,
+                                            'has-error': form.notaTeoretic.$invalid && submitted }">
+            <label>Nota teoretic</label>
+
+            <input type="number" name="notaTeoretic" class="form-control" ng-model="examen.notaTeoretic"
+                   required/>
+            <p class="help-block" ng-show="form.notaTeoretic.$error.required && submitted">
+              Nota teoretic este necesara
+            </p>
+          </div>
+
+          <div class="form-group col-sm-2" ng-class="{ 'has-success': form.notaPractic.$valid && submitted,
+                                            'has-error': form.notaPractic.$invalid && submitted }">
+            <label>Nota practic</label>
+
+            <input type="number" name="notaPractic" class="form-control" ng-model="examen.notaPractic"
+                   required/>
+            <p class="help-block" ng-show="form.notaPractic.$error.required && submitted">
+              Nota practic este necesara
+            </p>
+          </div>
+
+
+          <div class="form-group col-sm-4">
+            <label>Serie Diploma</label>
+            <input type="text" name="serieDiploma" class="form-control" ng-model="examen.serieDiploma"/>
+          </div>
+        </div>
+
+        <div class="row col-sm-12">
+
+          <button ng-disabled="updateFlag" class="btn btn-inverse btn-lg" type="submit">
+            Adauga
+          </button>
+          <button ng-disabled="updateFlag" class="btn btn-default btn-lg" type="button" ng-click="cauta()">
+            Cauta
+          </button>
+          <button ng-show="updateFlag" class="btn btn-default btn-lg" type="button" ng-click="salveaza_modificari()">
+            Modifica
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="container" style="padding-top: 50px">
+    <table class="table">
+      <thead>
+      <tr>
+        <th>Cursant</th>
+        <th>Nota teoretic</th>
+        <th>Nota practic</th>
+        <th>Serie Diploma</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr ng-repeat="c in lista">
+        <td class="col-sm-2"> {{c.numeCursant}}</td>
+        <td class="col-sm-2"> {{c.notaTeoretic}}</td>
+        <td class="col-sm-2">{{c.notaPractic}}</td>
+        <td class="col-sm-1">{{c.serieDiploma}}</td>
+        <td class="col-sm-1">
+          <button class="glyphicon glyphicon-remove" ng-click="sterge(c._id)"></button>
+          <button class="glyphicon glyphicon-pencil" ng-click="modifica(c._id)"></button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>

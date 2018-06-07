@@ -1,82 +1,95 @@
 <navbar></navbar>
-
 <div class="container">
   <div class="row">
     <div class="col-sm-12">
-      <h1>Adaugare grupa</h1>
+      <h1>Grupe</h1>
     </div>
+
     <div class="col-sm-12">
-      <form class="form" name="form" ng-submit="vm.register(form)" novalidate>
+      <form class="form" name="form" ng-submit="adauga(form)" novalidate>
+        <div class="row">
 
-        <div class="form-group" ng-class="{ 'has-success': form.name.$valid && vm.submitted,
-                                            'has-error': form.name.$invalid && vm.submitted }">
-          <label>Numar Grupa</label>
+          <div class="form-group col-sm-3" ng-class="{ 'has-success': form.cursDenumire.$valid && submitted,
+                                            'has-error': form.cursDenumire.$invalid && submitted }">
+            <label>Curs</label>
 
-          <input type="text" name="name" class="form-control" ng-model="vm.grupa.nrOre"
-                 required/>
-          <p class="help-block" ng-show="form.name.$error.required && vm.submitted">
-            A name is required
-          </p>
+            <!--<input type="text" name="curs" class="form-control" ng-model="grupa.curs"-->
+                   <!--required/>-->
+            <input type="text" name="cursDenumire" ng-model="grupa.cursDenumire" placeholder="Cursuri"
+                   typeahead="c for c in getCursuri($viewValue)" typeahead-loading="loadingLocations"
+                   class="form-control" typeahead-on-select="selectCurs($item, $model, $label)" required>
+
+            <p class="help-block" ng-show="form.cursDenumire.$error.required && submitted">
+              Cursul este necesar
+            </p>
+          </div>
+
+          <div class="form-group col-sm-3" ng-class="{ 'has-success': form.dataStart.$valid && submitted,
+                                            'has-error': form.dataStart.$invalid && submitted }">
+            <label>Data Start</label>
+            <input type="date" class="form-control" datepicker-popup ng-model="grupa.dataStart"
+                   datepicker-options="dateOptions">
+          </div>
+
+          <div class="form-group col-sm-3" ng-class="{ 'has-success': form.dataStop.$valid && submitted,
+                                            'has-error': form.dataStop.$invalid && submitted }">
+            <label>Data Stop</label>
+            <input type="date" class="form-control" datepicker-popup ng-model="grupa.dataStop"
+                   datepicker-options="dateOptions">
+          </div>
+
+          <div class="form-group col-sm-3" ng-class="{ 'has-success': form.nrGrupa.$valid && submitted,
+                                            'has-error': form.nrGrupa.$invalid && submitted }">
+            <label>Numar Grupa</label>
+
+            <input type="text" name="nrGrupa" class="form-control" ng-model="grupa.nrGrupa"
+                   required/>
+            <p class="help-block" ng-show="form.nrGrupa.$error.required && submitted">
+              Numarul grupei este necesar
+            </p>
+          </div>
+
         </div>
 
-        <div class="form-group" ng-class="{ 'has-success': form.email.$valid && vm.submitted,
-                                            'has-error': form.email.$invalid && vm.submitted }">
-          <label>Email</label>
+        <div class="row col-sm-12">
 
-          <input type="email" name="email" class="form-control" ng-model="vm.user.email"
-                 required
-                 mongoose-error/>
-          <p class="help-block" ng-show="form.email.$error.email && vm.submitted">
-            Doesn't look like a valid email.
-          </p>
-          <p class="help-block" ng-show="form.email.$error.required && vm.submitted">
-            What's your email address?
-          </p>
-          <p class="help-block" ng-show="form.email.$error.mongoose">
-            {{ vm.errors.email }}
-          </p>
-        </div>
-
-        <div class="form-group" ng-class="{ 'has-success': form.password.$valid && vm.submitted,
-                                            'has-error': form.password.$invalid && vm.submitted }">
-          <label>Password</label>
-
-          <input type="password" name="password" class="form-control" ng-model="vm.user.password"
-                 ng-minlength="3"
-                 required
-                 mongoose-error/>
-          <p class="help-block"
-             ng-show="(form.password.$error.minlength || form.password.$error.required) && vm.submitted">
-            Password must be at least 3 characters.
-          </p>
-          <p class="help-block" ng-show="form.password.$error.mongoose">
-            {{ vm.errors.password }}
-          </p>
-        </div>
-
-        <div class="form-group" ng-class="{ 'has-success': form.confirmPassword.$valid && vm.submitted,
-                                            'has-error': form.confirmPassword.$invalid && vm.submitted }">
-          <label>Confirm Password</label>
-          <input type="password" name="confirmPassword" class="form-control" ng-model="vm.user.confirmPassword"
-                 match="vm.user.password"
-                 ng-minlength="3" required/>
-          <p class="help-block"
-             ng-show="form.confirmPassword.$error.match && vm.submitted">
-            Passwords must match.
-          </p>
-        </div>
-
-        <div>
-          <button class="btn btn-inverse btn-lg btn-register" type="submit">
-            Sign up
+          <button ng-disabled="updateFlag" class="btn btn-inverse btn-lg" type="submit">
+            Adauga
           </button>
-          <a class="btn btn-default btn-lg btn-login" ui-sref="login">
-            Login
-          </a>
+          <button ng-disabled="updateFlag" class="btn btn-default btn-lg" type="button" ng-click="cauta()">
+            Cauta
+          </button>
+          <button ng-show="updateFlag" class="btn btn-default btn-lg" type="button" ng-click="salveaza_modificari()">
+            Modifica
+          </button>
         </div>
-
       </form>
     </div>
   </div>
-  <hr>
+
+  <div class="container" style="padding-top: 50px">
+    <table class="table">
+      <thead>
+      <tr>
+        <th>Curs</th>
+        <th>Data Start</th>
+        <th>Data Stop</th>
+        <th>Numar Grupa</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr ng-repeat="c in lista">
+        <td class="col-sm-2"> {{c.cursDenumire}}</td>
+        <td class="col-sm-2"> {{c.dataStart | date}}</td>
+        <td class="col-sm-2">{{c.dataStop | date}}</td>
+        <td class="col-sm-1">{{c.nrGrupa}}</td>
+        <td class="col-sm-1">
+          <button class="glyphicon glyphicon-remove" ng-click="sterge(c._id)"></button>
+          <button class="glyphicon glyphicon-pencil" ng-click="modifica(c._id)"></button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
 </div>

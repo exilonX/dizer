@@ -84,10 +84,10 @@
 
         <div class="row col-sm-12">
 
-          <button class="btn btn-inverse btn-lg" type="submit">
+          <button ng-disabled="updateFlag" class="btn btn-inverse btn-lg" type="submit">
             Adauga
           </button>
-          <button class="btn btn-default btn-lg" type="button" ng-click="cauta()">
+          <button ng-disabled="updateFlag" class="btn btn-default btn-lg" type="button" ng-click="cauta()">
             Cauta
           </button>
           <button ng-show="updateFlag" class="btn btn-default btn-lg" type="button" ng-click="salveaza_modificari()">

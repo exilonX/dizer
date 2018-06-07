@@ -101,3 +101,8 @@ exports.destroy = function(req, res) {
     .catch(handleError(res));
 };
 
+exports.search = function(req, res) {
+  Grupa.find(req.body)
+    .then(responseWithResult(res))
+    .then(handleError(res));
+}

@@ -20,7 +20,7 @@ angular.module('dizerApp')
       if (form.$valid) {
         $http.post(API, $scope.cursant).then(response => {
           if (response.data)
-            $scope.lista.push(response.data)
+            $scope.lista.push(response.data);
           $scope.cursant = {};
           $scope.submitted = false;
         });
