@@ -8,6 +8,7 @@ angular.module('dizerApp')
     $scope.submitted = false;
     var API = '/api/examens/';
     $scope.updateFlag = false;
+    $scope.selectFlag = false;
 
     $scope.getCursanti = function(value) {
       return $http.get('/api/cursants/regex/' + value).then(response => {
@@ -23,6 +24,8 @@ angular.module('dizerApp')
         var c = $scope.cursanti[i];
         if ((c.nume + " " + c.prenume) == item) {
           $scope.examen.idCursant = c._id;
+          $scope.selectFlag = true;
+
         }
       }
     };
@@ -49,7 +52,7 @@ angular.module('dizerApp')
 
     $scope.adauga = function(form) {
       $scope.submitted = true;
-      if (form.$valid) {
+      if (form.$valid && $scope.selectFlag) {
         $http.post(API, $scope.examen).then(response => {
           if (response.data) {
             var obj = response.data;
@@ -58,6 +61,8 @@ angular.module('dizerApp')
           }
           $scope.examen = {};
           $scope.submitted = false;
+          $scope.selectFlag = false;
+
         });
       }
     };

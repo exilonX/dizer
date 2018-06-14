@@ -8,6 +8,7 @@ angular.module('dizerApp')
     $scope.submitted = false;
     var API = '/api/grupas/';
     $scope.updateFlag = false;
+    $scope.selectFlag = false;
 
     $scope.getCursuri = function(value) {
       return $http.get('/api/curs/regex/' + value).then(response => {
@@ -23,6 +24,7 @@ angular.module('dizerApp')
         var c = $scope.cursuri[i];
         if (c.denumireCurs == item) {
           $scope.grupa.idCurs = c._id;
+          $scope.selectFlag = true;
         }
       }
     };
@@ -49,7 +51,7 @@ angular.module('dizerApp')
 
     $scope.adauga = function(form) {
       $scope.submitted = true;
-      if (form.$valid) {
+      if (form.$valid && $scope.selectFlag) {
 
         $http.post(API, $scope.grupa).then(response => {
           if (response.data) {
@@ -59,6 +61,8 @@ angular.module('dizerApp')
           }
           $scope.grupa = {};
           $scope.submitted = false;
+          $scope.selectFlag = false;
+
         });
       }
     };

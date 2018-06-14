@@ -108,6 +108,12 @@ exports.search = function(req, res) {
     .then(handleError(res));
 };
 
+exports.searchRegex = function(req, res) {
+  Grupa.find({nrGrupa : new RegExp("^" + req.params.nrGrupa)})
+    .then(responseWithResult(res))
+    .then(handleError(res));
+};
+
 exports.getInfoGrupa = function(req, res) {
   Grupa.find({
     dataStart : {

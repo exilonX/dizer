@@ -6,10 +6,10 @@
     </div>
 
     <div class="col-sm-12">
-      <form class="form" name="form" ng-submit="adauga(form)" novalidate>
+      <form class="form" name="form" ng-submit="adauga(form)" autocomplete="off" novalidate>
         <div class="row">
-          <div class="form-group col-sm-3" ng-class="{ 'has-success': form.numarContract.$valid && submitted,
-                                            'has-error': form.numarContract.$invalid && submitted }">
+          <div class="form-group col-sm-3" ng-class="{ 'has-success': (form.numarContract.$valid || !selectFlag) && submitted,
+                                            'has-error': (form.numarContract.$valid || !selectFlag) && submitted }">
             <label>Contract</label>
 
             <input type="text" ng-model="factura.numarContract" placeholder="Contract"
@@ -20,13 +20,16 @@
             <p class="help-block" ng-show="form.numarContract.$error.required && submitted">
               Contractul este necesar
             </p>
+            <p class="help-block" ng-show="!selectFlag && submitted">
+              Numarul contractului trebuie selectat din lista
+            </p>
           </div>
 
           <div class="form-group col-sm-2" ng-class="{ 'has-success': form.dataFactura.$valid && submitted,
                                             'has-error': form.dataFactura.$invalid && submitted }">
             <label>Data Factura</label>
             <input type="date" class="form-control" datepicker-popup ng-model="factura.dataFactura"
-                   name="dataFactura" datepicker-options="dateOptions" required>
+                   name="dataFactura" datepicker-options="dateOptions">
           </div>
 
           <div class="form-group col-sm-3" ng-class="{ 'has-success': form.tipPlata.$valid && submitted,
@@ -79,6 +82,7 @@
         <th>Tip Plata</th>
         <th>Numar Plata</th>
         <th>Data Plata</th>
+        <th>Sterge/Modifica</th>
       </tr>
       </thead>
       <tbody>

@@ -6,11 +6,11 @@
     </div>
 
     <div class="col-sm-12">
-      <form class="form" name="form" ng-submit="adauga(form)" novalidate>
+      <form class="form" name="form" ng-submit="adauga(form)" autocomplete="off" novalidate>
         <div class="row">
 
-          <div class="form-group col-sm-3" ng-class="{ 'has-success': form.cursDenumire.$valid && submitted,
-                                            'has-error': form.cursDenumire.$invalid && submitted }">
+          <div class="form-group col-sm-3" ng-class="{ 'has-success': (form.cursDenumire.$valid || !selectFlag) && submitted,
+                                            'has-error': (form.cursDenumire.$invalid || !selectFlag) && submitted }">
             <label>Curs</label>
 
             <!--<input type="text" name="curs" class="form-control" ng-model="grupa.curs"-->
@@ -21,6 +21,9 @@
 
             <p class="help-block" ng-show="form.cursDenumire.$error.required && submitted">
               Cursul este necesar
+            </p>
+            <p class="help-block" ng-show="!selectFlag && submitted">
+              Cursul trebuie selectat din lista
             </p>
           </div>
 
@@ -38,7 +41,7 @@
                    datepicker-options="dateOptions">
           </div>
 
-          <div class="form-group col-sm-3" ng-class="{ 'has-success': form.nrGrupa.$valid && submitted,
+          <div class="form-group col-sm-2" ng-class="{ 'has-success': form.nrGrupa.$valid && submitted,
                                             'has-error': form.nrGrupa.$invalid && submitted }">
             <label>Numar Grupa</label>
 
@@ -46,6 +49,17 @@
                    required/>
             <p class="help-block" ng-show="form.nrGrupa.$error.required && submitted">
               Numarul grupei este necesar
+            </p>
+          </div>
+
+          <div class="form-group col-sm-1" ng-class="{ 'has-success': form.nrLocuri.$valid && submitted,
+                                            'has-error': form.nrLocuri.$invalid && submitted }">
+            <label>Locuri</label>
+
+            <input type="number" name="nrLocuri" class="form-control" ng-model="grupa.nrLocuri"
+                   required/>
+            <p class="help-block" ng-show="form.nrLocuri.$error.required && submitted">
+              Numarul de locuri este necesar
             </p>
           </div>
 
@@ -75,6 +89,8 @@
         <th>Data Start</th>
         <th>Data Stop</th>
         <th>Numar Grupa</th>
+        <th>Numar Locuri</th>
+        <th>Sterge/Modifica</th>
       </tr>
       </thead>
       <tbody>
@@ -83,6 +99,7 @@
         <td class="col-sm-2"> {{c.dataStart | date}}</td>
         <td class="col-sm-2">{{c.dataStop | date}}</td>
         <td class="col-sm-1">{{c.nrGrupa}}</td>
+        <td class="col-sm-1">{{c.nrLocuri}}</td>
         <td class="col-sm-1">
           <button class="glyphicon glyphicon-remove" ng-click="sterge(c._id)"></button>
           <button class="glyphicon glyphicon-pencil" ng-click="modifica(c._id)"></button>

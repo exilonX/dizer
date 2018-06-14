@@ -6,10 +6,10 @@
     </div>
 
     <div class="col-sm-12">
-      <form class="form" name="form" ng-submit="adauga(form)" novalidate>
+      <form class="form" name="form" ng-submit="adauga(form)" autocomplete="off" novalidate>
         <div class="row">
-          <div class="form-group col-sm-4" ng-class="{ 'has-success': form.numeCursant.$valid && submitted,
-                                            'has-error': form.numeCursant.$invalid && submitted }">
+          <div class="form-group col-sm-4" ng-class="{ 'has-success': (form.numeCursant.$valid || !selectFlag1) && submitted,
+                                            'has-error': (form.numeCursant.$valid || !selectFlag1) && submitted }">
             <label>Cursant</label>
 
             <input type="text" ng-model="contract.numeCursant" placeholder="Cursanti"
@@ -20,10 +20,13 @@
             <p class="help-block" ng-show="form.numeCursant.$error.required && submitted">
               Cursantul este necesar
             </p>
+            <p class="help-block" ng-show="!selectFlag1 && submitted">
+              Cursantul trebuie selectat din lista
+            </p>
           </div>
 
-          <div class="form-group col-sm-4" ng-class="{ 'has-success': form.numeGrupa.$valid && submitted,
-                                            'has-error': form.numeGrupa.$invalid && submitted }">
+          <div class="form-group col-sm-4" ng-class="{ 'has-success': (form.numeGrupa.$valid || !selectFlag2) && submitted,
+                                            'has-error': (form.numeGrupa.$valid || !selectFlag2) && submitted }">
             <label>Grupa</label>
 
             <input type="text" ng-model="contract.numeGrupa" placeholder="Grupe"
@@ -33,6 +36,9 @@
 
             <p class="help-block" ng-show="form.numeGrupa.$error.required && submitted">
               Grupa este necesara
+            </p>
+            <p class="help-block" ng-show="!selectFlag2 && submitted">
+              Grupa trebuie selectata din lista
             </p>
           </div>
         </div>
@@ -85,6 +91,7 @@
         <th>Numar Contract</th>
         <th>Data Contract</th>
         <th>Discount</th>
+        <th>Sterge/Modifica</th>
       </tr>
       </thead>
       <tbody>

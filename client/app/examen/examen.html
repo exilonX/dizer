@@ -6,12 +6,11 @@
     </div>
 
     <div class="col-sm-12">
-      <form class="form" name="form" ng-submit="adauga(form)" novalidate>
+      <form class="form" name="form" ng-submit="adauga(form)" autocomplete="off" novalidate>
         <div class="row">
 
-
-          <div class="form-group col-sm-4" ng-class="{ 'has-success': form.numeCursant.$valid && submitted,
-                                            'has-error': form.numeCursant.$invalid && submitted }">
+          <div class="form-group col-sm-4" ng-class="{ 'has-success': (form.numeCursant.$valid || !selectFlag) && submitted,
+                                            'has-error':(form.numeCursant.$valid || !selectFlag) && submitted }">
             <label>Cursant</label>
 
             <input type="text" ng-model="examen.numeCursant" placeholder="Cursanti"
@@ -21,6 +20,9 @@
 
             <p class="help-block" ng-show="form.numeCursant.$error.required && submitted">
               Cursantul este necesar
+            </p>
+            <p class="help-block" ng-show="!selectFlag && submitted">
+              Cursantul trebuie selectat din lista
             </p>
           </div>
 
@@ -77,6 +79,7 @@
         <th>Nota teoretic</th>
         <th>Nota practic</th>
         <th>Serie Diploma</th>
+        <th>Sterge/Modifica</th>
       </tr>
       </thead>
       <tbody>

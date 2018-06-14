@@ -6,7 +6,7 @@
     </div>
 
     <div class="col-sm-12">
-      <form class="form" name="form" ng-submit="adauga(form)" novalidate>
+      <form class="form" name="form" ng-submit="adauga(form)" autocomplete="off" novalidate>
         <div class="row">
 
           <div class="form-group col-sm-4" ng-class="{ 'has-success': form.denumireCurs.$valid && submitted,
@@ -71,6 +71,7 @@
         <th>Pret Intreg</th>
         <th>Pret Rate</th>
         <th>Numar Rate</th>
+        <th>Sterge/Modifica</th>
       </tr>
       </thead>
       <tbody>

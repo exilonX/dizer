@@ -9,6 +9,9 @@ angular.module('dizerApp')
     $scope.submitted = false;
     var API = '/api/contracts/';
     $scope.updateFlag = false;
+    $scope.selectFlag1 = false;
+    $scope.selectFlag2 = false;
+
 
     $scope.getCursanti = function(value) {
       return $http.get('/api/cursants/regex/' + value).then(response => {
@@ -33,6 +36,7 @@ angular.module('dizerApp')
         var c = $scope.cursanti[i];
         if ((c.nume + " " + c.prenume) == item) {
           $scope.contract.idCursant = c._id;
+          $scope.selectFlag1 = true;
         }
       }
     };
@@ -43,6 +47,8 @@ angular.module('dizerApp')
         var c = $scope.grupe[i];
         if (c.nrGrupa == item) {
           $scope.contract.idGrupa = c._id;
+          $scope.selectFlag2 = true;
+
         }
       }
     };
@@ -79,7 +85,7 @@ angular.module('dizerApp')
 
     $scope.adauga = function(form) {
       $scope.submitted = true;
-      if (form.$valid) {
+      if (form.$valid && $scope.selectFlag1 && $scope.selectFlag2) {
         $http.post(API, $scope.contract).then(response => {
           if (response.data) {
             var obj = response.data;
@@ -89,6 +95,9 @@ angular.module('dizerApp')
           }
           $scope.contract = {};
           $scope.submitted = false;
+          $scope.selectFlag1 = false;
+          $scope.selectFlag2 = false;
+
         });
       }
     };
