@@ -31,6 +31,7 @@ class MainController {
             res.nrGrupa = grupa.nrGrupa;
             res.dataStart = grupa.dataStart;
             res.locuriOcupate = locuriOcupate;
+            res.nrLocuri = grupa.nrLocuri;
             ref.lista.push(res);
           })
         })
